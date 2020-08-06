@@ -354,7 +354,8 @@ function getAsmOpcode(opcode) {
     }
 }
 
-module.exports = {
+export { getAsmOpcode };
+export default {
     getAsmOpcode: getAsmOpcode
 };
 """)

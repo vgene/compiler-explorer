@@ -76,7 +76,8 @@
     "unicorn/prevent-abbreviations": "off"
   },
   "parserOptions": {
-    "ecmaVersion": 2018
+    "sourceType": "module",
+    "ecmaVersion": 2020
   },
   "globals": {
     "BigInt": true
