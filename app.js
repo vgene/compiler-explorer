@@ -44,7 +44,7 @@ import { initialiseWine } from './lib/exec';
 import RouteAPI from './lib/handlers/route-api';
 import NoScriptHandler from './lib/handlers/noscript';
 import aws from './lib/aws';
-import * as google from './lib/google';
+import { ShortLinkResolver } from './lib/google';
 import { list } from './lib/languages';
 import { policy } from './lib/csp';
 import ClientOptionsHandler from './lib/options-handler';
@@ -329,7 +329,7 @@ function shouldRedactRequestData(data) {
     }
 }
 
-const googleShortUrlResolver = new google.ShortLinkResolver();
+const googleShortUrlResolver = new ShortLinkResolver();
 
 function oldGoogleUrlHandler(req, res, next) {
     const bits = req.url.split('/');
