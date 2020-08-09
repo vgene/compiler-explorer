@@ -22,11 +22,11 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
-const chai = require('chai'),
-    chaiAsPromised = require('chai-as-promised'),
-    properties = require('../../lib/properties'),
-    s3s = require('../../lib/storage/storage-s3'),
-    AWS = require('aws-sdk-mock');
+import chai from 'chai';
+import chaiAsPromised from 'chai-as-promised';
+import properties from '../../lib/properties';
+import s3s from '../../lib/storage/storage-s3';
+import AWS from 'aws-sdk-mock';
 
 chai.use(chaiAsPromised);
 const should = chai.should();

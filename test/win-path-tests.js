@@ -22,13 +22,12 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
-const chai = require('chai');
-const chaiAsPromised = require('chai-as-promised');
-const child_process = require('child_process');
-
-const WslCL = require('../lib/compilers/wsl-vc');
-const WineCL = require('../lib/compilers/wine-vc');
-const {makeCompilationEnvironment} = require('./utils');
+import chai from 'chai';
+import chaiAsPromised from 'chai-as-promised';
+import child_process from 'child_process';
+import WslCL from '../lib/compilers/wsl-vc';
+import WineCL from '../lib/compilers/wine-vc';
+import { makeCompilationEnvironment } from './utils';
 
 chai.use(chaiAsPromised);
 chai.should();

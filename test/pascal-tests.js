@@ -22,13 +22,13 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
-const chai = require('chai');
-const chaiAsPromised = require('chai-as-promised');
-const PascalDemangler = require('../lib/demangler-pascal').Demangler;
-const PascalCompiler = require('../lib/compilers/pascal');
-const fs = require('fs-extra');
-const utils = require('../lib/utils');
-const {makeCompilationEnvironment} = require('./utils');
+import chai from 'chai';
+import chaiAsPromised from 'chai-as-promised';
+import DemanglerPascal from '../lib/demangler-pascal';
+import FPCCompiler from '../lib/compilers/pascal';
+import fs from 'fs-extra';
+import * as utils from '../lib/utils';
+import { makeCompilationEnvironment } from './utils';
 
 chai.use(chaiAsPromised);
 chai.should();
@@ -48,7 +48,7 @@ describe('Pascal', () => {
             lang: languages.pascal.id,
         };
 
-        compiler = new PascalCompiler(info, ce);
+        compiler = new FPCCompiler(info, ce);
     });
 
     it('Basic compiler setup', () => {
@@ -60,7 +60,7 @@ describe('Pascal', () => {
     });
 
     describe('Pascal signature composer function', function () {
-        const demangler = new PascalDemangler();
+        const demangler = new DemanglerPascal();
 
         it('Handle 0 parameter methods', function () {
             demangler.composeReadableMethodSignature('', '', 'myfunc', '').should.equal('myfunc()');
@@ -80,7 +80,7 @@ describe('Pascal', () => {
     });
 
     describe('Pascal Demangling FPC 2.6', function () {
-        const demangler = new PascalDemangler();
+        const demangler = new DemanglerPascal();
 
         it('Should demangle OUTPUT_MAXARRAY$array_of_DOUBLE$array_of_DOUBLE', function () {
             demangler.demangle('OUTPUT_MAXARRAY$array_of_DOUBLE$array_of_DOUBLE:').should.equal('maxarray(array_of_double,array_of_double)');
@@ -116,7 +116,7 @@ describe('Pascal', () => {
     });
 
     describe('Pascal Demangling FPC 3.2', function () {
-        const demangler = new PascalDemangler();
+        const demangler = new DemanglerPascal();
 
         it('Should demangle OUTPUT_$$_SQUARE$LONGINT$$LONGINT', function () {
             demangler.demangle('OUTPUT_$$_SQUARE$LONGINT$$LONGINT:').should.equal('square(longint)');
@@ -160,7 +160,7 @@ describe('Pascal', () => {
     });
 
     describe('Pascal Demangling Fixed Symbols FPC 2.6', function () {
-        const demangler = new PascalDemangler();
+        const demangler = new DemanglerPascal();
 
         it('Should demangle OUTPUT_finalize_implicit', function () {
             demangler.demangle('OUTPUT_finalize_implicit:').should.equal('unit_finalization_implicit');
@@ -168,7 +168,7 @@ describe('Pascal', () => {
     });
 
     describe('Pascal Demangling Fixed Symbols FPC 3.2', function () {
-        const demangler = new PascalDemangler();
+        const demangler = new DemanglerPascal();
 
         it('Should demangle OUTPUT_$$_init', function () {
             demangler.demangle('OUTPUT_$$_init:').should.equal('unit_initialization');
@@ -192,7 +192,7 @@ describe('Pascal', () => {
     });
 
     describe('Pascal NOT Demangling certain symbols FPC 2.6', function () {
-        const demangler = new PascalDemangler();
+        const demangler = new DemanglerPascal();
 
         it('Should NOT demangle VMT_OUTPUT_TMYCLASS', function () {
             demangler.demangle('VMT_OUTPUT_TMYCLASS:').should.equal(false);
@@ -224,7 +224,7 @@ describe('Pascal', () => {
     });
 
     describe('Pascal NOT Demangling certain symbols FPC 3.2', function () {
-        const demangler = new PascalDemangler();
+        const demangler = new DemanglerPascal();
 
         it('Should NOT demangle RTTI_$OUTPUT_$$_TMYCLASS', function () {
             demangler.demangle('RTTI_$OUTPUT_$$_TMYCLASS:').should.equal(false);
@@ -252,7 +252,7 @@ describe('Pascal', () => {
     });
 
     describe('Add, order and demangle inline', function () {
-        const demangler = new PascalDemangler();
+        const demangler = new DemanglerPascal();
 
         demangler.demangle('OUTPUT$_$TMYCLASS_$__$$_MYTEST:');
         demangler.demangle('U_$OUTPUT_$$_MYGLOBALVAR:');
@@ -272,7 +272,7 @@ describe('Pascal', () => {
     });
 
     describe('Add, order and demangle inline - using addDemangleToCache()', function () {
-        const demangler = new PascalDemangler();
+        const demangler = new DemanglerPascal();
 
         demangler.addDemangleToCache('OUTPUT$_$TMYCLASS_$__$$_MYTEST:');
         demangler.addDemangleToCache('U_$OUTPUT_$$_MYGLOBALVAR:');
@@ -291,7 +291,7 @@ describe('Pascal', () => {
     });
 
     describe('Pascal Ignored Symbols', function () {
-        const demangler = new PascalDemangler();
+        const demangler = new DemanglerPascal();
 
         it('Should ignore certain labels', function () {
             demangler.shouldIgnoreSymbol('.Le1').should.equal(true);
@@ -306,8 +306,8 @@ describe('Pascal', () => {
 
     describe('Pascal ASM line number injection', function () {
         before(() => {
-            compiler.demanglerClass = require('../lib/demangler-pascal').Demangler;
-            compiler.demangler = new compiler.demanglerClass(null, compiler);
+            compiler.demanglerClass = DemanglerPascal;
+            compiler.demangler = new DemanglerPascal(null, compiler);
         });
 
         it('Should have line numbering', function () {
@@ -333,7 +333,7 @@ describe('Pascal', () => {
         it('Should filter out most of the runtime', function () {
             return new Promise(function (resolve) {
                 fs.readFile('test/pascal/objdump-example.s', function (err, buffer) {
-                    const output = PascalCompiler.preProcessBinaryAsm(buffer.toString());
+                    const output = FPCCompiler.preProcessBinaryAsm(buffer.toString());
                     resolve(Promise.all([
                         utils.splitLines(output).length.should.be.below(500),
                         output.should.not.include('fpc_zeromem():'),

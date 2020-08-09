@@ -22,12 +22,9 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
-const chai = require('chai'),
-    asmDocsApi = require('../../lib/handlers/asm-docs-api'),
-    express = require('express');
-
-chai.use(require('chai-http'));
-chai.should();
+import { chai } from '../utils';
+import * as asmDocsApi from '../../lib/handlers/asm-docs-api';
+import express from 'express';
 
 describe('Assembly documents', () => {
     const app = express();

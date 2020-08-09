@@ -22,10 +22,10 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
-const chai = require('chai');
-const chaiAsPromised = require('chai-as-promised');
-const NimCompiler = require('../lib/compilers/nim');
-const {makeCompilationEnvironment} = require('./utils');
+import chai from 'chai';
+import chaiAsPromised from 'chai-as-promised';
+import NimCompiler from '../lib/compilers/nim';
+import { makeCompilationEnvironment } from './utils';
 
 chai.use(chaiAsPromised);
 chai.should();

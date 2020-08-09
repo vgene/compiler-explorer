@@ -22,11 +22,11 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
-const chai = require('chai');
-const chaiAsPromised = require('chai-as-promised');
-const LLCCompiler = require('../lib/compilers/llc');
-const OPTCompiler = require('../lib/compilers/opt');
-const {makeCompilationEnvironment} = require('./utils');
+import chai from 'chai';
+import chaiAsPromised from 'chai-as-promised';
+import LLCCompiler from '../lib/compilers/llc';
+import OPTCompiler from '../lib/compilers/opt';
+import { makeCompilationEnvironment } from './utils';
 
 chai.use(chaiAsPromised);
 chai.should();

@@ -22,21 +22,15 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
-const chai = require('chai');
-const chaiAsPromised = require('chai-as-promised');
-const InMemoryCache = require('../lib/cache/in-memory');
-const MultiCache = require('../lib/cache/multi');
-const OnDiskCache = require('../lib/cache/on-disk');
-const S3Cache = require('../lib/cache/s3');
-const NullCache = require('../lib/cache/null');
-const FromConfig = require('../lib/cache/from-config');
-const temp = require('temp');
-const fs = require('fs');
-const path = require('path');
-const AWS = require('aws-sdk-mock');
-
-chai.use(chaiAsPromised);
-chai.should();
+import { fs, path } from './utils';
+import InMemoryCache from '../lib/cache/in-memory';
+import MultiCache from '../lib/cache/multi';
+import OnDiskCache from '../lib/cache/on-disk';
+import S3Cache from '../lib/cache/s3';
+import NullCache from '../lib/cache/null';
+import FromConfig from '../lib/cache/from-config';
+import temp from 'temp';
+import AWS from 'aws-sdk-mock';
 
 function newTempDir() {
     temp.track(true);

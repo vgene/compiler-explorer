@@ -22,12 +22,13 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
-const chai = require('chai'),
-    FakeCompiler = require('../../lib/compilers/fake-for-test'),
-    chaiAsPromised = require('chai-as-promised'),
-    parsers = require('../../lib/compilers/argument-parsers'),
-    CompilerArguments = require('../../lib/compiler-arguments'),
-    {makeCompilationEnvironment} = require('../utils');
+import chai from 'chai';
+import FakeCompiler from '../../lib/compilers/fake-for-test';
+import chaiAsPromised from 'chai-as-promised';
+import parsers from '../../lib/compilers/argument-parsers';
+import CompilerArguments from '../../lib/compiler-arguments';
+import { makeCompilationEnvironment } from '../utils';
+
 chai.use(chaiAsPromised);
 const should = chai.should();
 

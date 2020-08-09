@@ -22,12 +22,43 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
-const {CompilerProps, fakeProps} = require('../lib/properties');
-const CompilationQueue = require('../lib/compilation-queue');
-const CompilationEnvironment = require('../lib/compilation-env');
+import fs from 'fs-extra';
+import chai from 'chai';
+import chaiAsPromised from 'chai-as-promised';
+import chaiHttp from 'chai-http';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { CompilerProps, fakeProps } from '../lib/properties';
+import CompilationQueue from '../lib/compilation-queue';
+import CompilationEnvironment from '../lib/compilation-env';
 
-module.exports.makeCompilationEnvironment = (options) => {
+const makeCompilationEnvironment = (options) => {
     const compilerProps = new CompilerProps(options.languages, fakeProps(options.props || {}));
     const compilationQueue = options.queue || new CompilationQueue(options.concurrency || 1, options.timeout);
     return new CompilationEnvironment(compilerProps, compilationQueue, options.doCache);
+};
+
+chai.use(chaiAsPromised);
+chai.use(chaiHttp);
+const should = chai.should();
+const assert = chai.assert;
+
+/***
+ * Absolute path to the root of the tests
+ */
+const TEST_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)));
+
+function resolvePathFromTestRoot(...args) {
+    return path.resolve(TEST_ROOT, ...args);
+}
+
+export {
+    fs,
+    chai,
+    assert,
+    should,
+    path,
+    makeCompilationEnvironment,
+    TEST_ROOT,
+    resolvePathFromTestRoot,
 };

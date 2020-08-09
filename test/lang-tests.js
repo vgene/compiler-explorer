@@ -22,11 +22,12 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
-const should = require('chai').should(),
-    languages = require('../lib/languages').list,
-    fs = require('fs-extra'),
-    path = require('path');
+import chai from 'chai';
+import { list } from '../lib/languages';
+import fs from 'fs-extra';
+import path from 'path';
 
+const should = chai.should(), languages = { list }.list;
 
 describe('Language definitions tests', () => {
     it('Has id equal to object key', () => {

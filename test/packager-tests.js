@@ -21,16 +21,15 @@
 // CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
-'use strict';
 
-const
-    chai = require('chai'),
-    chaiAsPromised = require('chai-as-promised'),
-    Packager = require('../lib/packager').Packager,
-    path = require('path'),
-    fs = require('fs-extra'),
-    temp = require('temp');
+import chai from 'chai';
+import chaiAsPromised from 'chai-as-promised';
+import { Packager as Packager$0 } from '../lib/packager';
+import path from 'path';
+import fs from 'fs-extra';
+import temp from 'temp';
 
+const Packager = { Packager: Packager$0 }.Packager;
 chai.use(chaiAsPromised);
 chai.should();
 

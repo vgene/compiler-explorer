@@ -22,9 +22,9 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
-const chai = require('chai'),
-    chaiAsPromised = require('chai-as-promised'),
-    exec = require('../lib/exec');
+import chai from 'chai';
+import chaiAsPromised from 'chai-as-promised';
+import exec from '../lib/exec';
 
 chai.use(chaiAsPromised);
 chai.should();

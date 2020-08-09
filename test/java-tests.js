@@ -22,12 +22,12 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
-const chai = require('chai');
-const chaiAsPromised = require('chai-as-promised');
-const JavaCompiler = require('../lib/compilers/java');
-const fs = require('fs-extra');
-const utils = require('../lib/utils');
-const {makeCompilationEnvironment} = require('./utils');
+import chai from 'chai';
+import chaiAsPromised from 'chai-as-promised';
+import JavaCompiler from '../lib/compilers/java';
+import fs from 'fs-extra';
+import * as utils from '../lib/utils';
+import { makeCompilationEnvironment } from './utils';
 
 chai.use(chaiAsPromised);
 chai.should();
@@ -186,5 +186,3 @@ describe.skip('javap parsing', () => {
         ]);
     });
 });
-
-

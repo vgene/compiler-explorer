@@ -22,17 +22,16 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
 // POSSIBILITY OF SUCH DAMAGE.
 
-const fs = require('fs-extra');
-const AsmParser = require('../lib/asm-parser');
-const AsmParserSass = require('../lib/asm-parser-sass');
-const AsmParserVC = require('../lib/asm-parser-vc');
-const utils = require('../lib/utils');
-require('chai').should();
+import { chai, fs, resolvePathFromTestRoot } from './utils';
+import AsmParser from '../lib/asm-parser';
+import AsmParserSass from '../lib/asm-parser-sass';
+import AsmParserVC from '../lib/asm-parser-vc';
+import * as utils from '../lib/utils';
 
 // eslint-disable-next-line no-unused-vars
 function bless(filename, output, filters) {
-    const result = processAsm(__dirname + '/' + filename, filters);
-    fs.writeFileSync(__dirname + '/' + output, JSON.stringify(result, null, 2));
+    const result = processAsm(resolvePathFromTestRoot(filename), filters);
+    fs.writeFileSync(resolvePathFromTestRoot(output), JSON.stringify(result, null, 2));
 }
 
 // eslint-disable-next-line no-unused-vars
@@ -67,7 +66,7 @@ function dump(file) {
 // bless("filters-cases/sass-squarelabeled.asm", "filters-cases/sass-squarelabeled.asm.binary.directives.labels.comments.json", {binary: true, directives: true, labels: true, commentOnly: true});
 // describe('A test', function() {
 //     it('should work', function(){
-//         console.log(processAsm(__dirname + '/filters-cases/6502-square.asm', {directives: true, labels: true, commentOnly: true}));
+//         console.log(processAsm(resolvePathFromTestRoot('filters-cases/6502-square.asm'), {directives: true, labels: true, commentOnly: true}));
 //     });
 // });
 
@@ -84,8 +83,8 @@ function processAsm(filename, filters) {
 }
 
 
-const files = fs.readdirSync(__dirname + '/filters-cases');
-const filesInCaseDir = files.map(x => 'filters-cases/' + x);
+const files = fs.readdirSync(resolvePathFromTestRoot('filters-cases'));
+const filesInCaseDir = files.map(x => resolvePathFromTestRoot('filters-cases', x));
 
 const cases = filesInCaseDir.filter(x => x.endsWith('.asm'));
 
@@ -96,15 +95,15 @@ function testFilter(filename, suffix, filters) {
     let file;
 
     if (json) {
-        file = fs.readFileSync(__dirname + '/' + expected + '.json', 'utf-8');
+        file = fs.readFileSync(resolvePathFromTestRoot(expected + '.json'), 'utf-8');
     }
     else if (filesInCaseDir.includes(expected)) {
-        file = fs.readFileSync(__dirname + '/' + expected, 'utf-8');
+        file = fs.readFileSync(resolvePathFromTestRoot(expected), 'utf-8');
     }
     else {
         return;
     }
-    const result = processAsm(__dirname + '/' + filename, filters);
+    const result = processAsm(resolvePathFromTestRoot(filename), filters);
 
     if (json) {
         file = JSON.parse(file);

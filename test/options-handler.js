@@ -22,12 +22,12 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
-const chai = require('chai');
-const chaiAsPromised = require('chai-as-promised');
-const OptionsHandler = require('../lib/options-handler');
-const _ = require('underscore');
-const properties = require('../lib/properties');
-const BaseCompiler = require('../lib/base-compiler');
+import chai from 'chai';
+import chaiAsPromised from 'chai-as-promised';
+import OptionsHandler from '../lib/options-handler';
+import _ from 'underscore';
+import properties from '../lib/properties';
+import BaseCompiler from '../lib/base-compiler';
 
 chai.use(chaiAsPromised);
 const should = chai.should();

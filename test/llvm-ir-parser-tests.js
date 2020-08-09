@@ -22,10 +22,10 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
-const chai = require('chai');
-const chaiAsPromised = require('chai-as-promised');
-const LlvmIrParser = require('../lib/llvm-ir');
-const properties = require('../lib/properties');
+import chai from 'chai';
+import chaiAsPromised from 'chai-as-promised';
+import LlvmIrParser from '../lib/llvm-ir';
+import properties from '../lib/properties';
 
 chai.use(chaiAsPromised);
 chai.should();

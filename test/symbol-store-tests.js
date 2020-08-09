@@ -22,9 +22,10 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
-const chai = require('chai');
-const SymbolStore = require('../lib/symbol-store').SymbolStore;
+import chai from 'chai';
+import { SymbolStore as SymbolStore$0 } from '../lib/symbol-store';
 
+const SymbolStore = { SymbolStore: SymbolStore$0 }.SymbolStore;
 chai.should();
 
 describe('SymbolStore', function () {

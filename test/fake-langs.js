@@ -22,11 +22,13 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
-module.exports = {
-    'fake-lang': {
-        id: 'fake-lang',
-        name: 'Fake Lang',
-        extensions: ['.fake'],
-        alias: ['testing'],
-    },
+export const lang = {
+    id: 'fake-lang',
+    name: 'Fake Lang',
+    extensions: ['.fake'],
+    alias: ['testing'],
+};
+
+export default {
+    lang
 };

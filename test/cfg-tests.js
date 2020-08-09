@@ -22,10 +22,8 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
-const chai = require('chai'),
-    cfg = require('../lib/cfg'),
-    fs = require('fs-extra');
-
+import { chai, fs, resolvePathFromTestRoot } from './utils';
+import * as cfg from '../lib/cfg';
 
 const assert = chai.assert;
 
@@ -44,8 +42,8 @@ describe('Cfg test cases', () => {
     let cases;
 
     before(() => {
-        const files = fs.readdirSync(__dirname + '/cfg-cases/');
-        cases = files.map(x => __dirname + '/cfg-cases/' + x);
+        const files = fs.readdirSync(resolvePathFromTestRoot('cfg-cases'));
+        cases = files.map(x => resolvePathFromTestRoot('cfg-cases', x));
     });
 
 

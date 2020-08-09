@@ -22,12 +22,12 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
-const chai = require('chai'),
-    chaiAsPromised = require('chai-as-promised'),
-    fs = require('fs-extra'),
-    utils = require('../lib/utils'),
-    GoCompiler = require('../lib/compilers/golang'),
-    {makeCompilationEnvironment} = require('./utils');
+import chai from 'chai';
+import chaiAsPromised from 'chai-as-promised';
+import fs from 'fs-extra';
+import * as utils from '../lib/utils';
+import GoCompiler from '../lib/compilers/golang';
+import { makeCompilationEnvironment } from './utils';
 
 chai.use(chaiAsPromised);
 chai.should();

@@ -22,19 +22,12 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
-const
-    chai = require('chai'),
-    fs = require('fs-extra'),
-    path = require('path'),
-    utils = require('../lib/utils'),
-    chaiAsPromised = require('chai-as-promised'),
-    SymbolStore = require('../lib/symbol-store').SymbolStore,
-    Demangler = require('../lib/demangler-cpp').Demangler,
-    DemanglerWin32 = require('../lib/demangler-win32').Demangler,
-    exec = require('../lib/exec');
-
-chai.use(chaiAsPromised);
-chai.should();
+import { fs, path, resolvePathFromTestRoot } from './utils';
+import * as utils from '../lib/utils';
+import { SymbolStore } from '../lib/symbol-store';
+import DemanglerCPP from '../lib/demangler-cpp';
+import DemanglerWin32 from '../lib/demangler-win32';
+import exec from '../lib/exec';
 
 const cppfiltpath = 'c++filt';
 
@@ -56,7 +49,7 @@ describe('Basic demangling', function () {
             asm: [{text: 'Hello, World!'}],
         };
 
-        const demangler = new Demangler(cppfiltpath, new DummyCompiler());
+        const demangler = new DemanglerCPP(cppfiltpath, new DummyCompiler());
         demangler.demanglerArguments = ['-n'];
 
         return Promise.all([
@@ -73,7 +66,7 @@ describe('Basic demangling', function () {
             {text: '  ret'},
         ];
 
-        const demangler = new Demangler(cppfiltpath, new DummyCompiler());
+        const demangler = new DemanglerCPP(cppfiltpath, new DummyCompiler());
         demangler.demanglerArguments = ['-n'];
 
         return Promise.all([
@@ -93,7 +86,7 @@ describe('Basic demangling', function () {
             {text: '  mov eax, $_Z6squarei'},
         ];
 
-        const demangler = new Demangler(cppfiltpath, new DummyCompiler());
+        const demangler = new DemanglerCPP(cppfiltpath, new DummyCompiler());
         demangler.demanglerArguments = ['-n'];
 
         return Promise.all([
@@ -119,7 +112,7 @@ describe('Basic demangling', function () {
             {text: '  rep ret'},
         ];
 
-        const demangler = new Demangler(cppfiltpath, new DummyCompiler());
+        const demangler = new DemanglerCPP(cppfiltpath, new DummyCompiler());
         demangler.demanglerArguments = ['-n'];
 
         return demangler.process(result)
@@ -156,7 +149,7 @@ describe('Basic demangling', function () {
             {text: '        call     hello                ; operator delete'},
         ];
 
-        const demangler = new Demangler(cppfiltpath, new DummyCompiler());
+        const demangler = new DemanglerCPP(cppfiltpath, new DummyCompiler());
         demangler.demanglerArguments = ['-n'];
         demangler.result = result;
         demangler.symbolstore = new SymbolStore();
@@ -176,7 +169,7 @@ describe('Basic demangling', function () {
             {text: '   bl _ZN3FooC1Ev'},
         ];
 
-        const demangler = new Demangler(cppfiltpath, new DummyCompiler());
+        const demangler = new DemanglerCPP(cppfiltpath, new DummyCompiler());
         demangler.demanglerArguments = ['-n'];
         demangler.result = result;
         demangler.symbolstore = new SymbolStore();
@@ -214,7 +207,7 @@ describe('Basic demangling', function () {
             {text: '  jmp _Z1fP6mytype # TAILCALL'},
         ];
 
-        const demangler = new Demangler(cppfiltpath, new DummyCompiler());
+        const demangler = new DemanglerCPP(cppfiltpath, new DummyCompiler());
         demangler.demanglerArguments = ['-n'];
         demangler.result = result;
         demangler.symbolstore = new SymbolStore();
@@ -234,7 +227,7 @@ describe('Basic demangling', function () {
             {text: '  jmp _Z1fP6mytype'},
         ];
 
-        const demangler = new Demangler(cppfiltpath, new DummyCompiler());
+        const demangler = new DemanglerCPP(cppfiltpath, new DummyCompiler());
         demangler.demanglerArguments = ['-n'];
         demangler.result = result;
         demangler.symbolstore = new SymbolStore();
@@ -267,7 +260,7 @@ function DoDemangleTest(root, filename, resolve, reject) {
                 return {text: line};
             });
 
-            const demangler = new Demangler(cppfiltpath, new DummyCompiler());
+            const demangler = new DemanglerCPP(cppfiltpath, new DummyCompiler());
             demangler.demanglerArguments = ['-n'];
             demangler.process(resultIn)
                 .then((output) => {
@@ -283,7 +276,7 @@ function DoDemangleTest(root, filename, resolve, reject) {
 }
 
 describe('File demangling',async () => {
-    const testcasespath = __dirname + '/demangle-cases';
+    const testcasespath = resolvePathFromTestRoot('demangle-cases');
 
     const files = await fs.readdir(testcasespath);
 

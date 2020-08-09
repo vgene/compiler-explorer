@@ -22,10 +22,12 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
-const chai = require('chai');
+import chai from 'chai';
+import deepEqualInAnyOrder from 'deep-equal-in-any-order';
+import * as sponsors from '../lib/sponsors';
+
 chai.should();
-chai.use(require('deep-equal-in-any-order'));
-const sponsors = require('../lib/sponsors');
+chai.use(deepEqualInAnyOrder);
 
 describe('Sponsors', () => {
     it('should load a simple example', () => {
