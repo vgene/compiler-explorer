@@ -22,16 +22,16 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
-import { SetTestMode } from '../../lib/handlers/compile';
+import * as handler from '../../lib/handlers/compile';
 import chai from 'chai';
-import compile from '../../lib/handlers/compile';
+
 import express from 'express';
 import bodyParser from 'body-parser';
 import { makeCompilationEnvironment } from '../utils';
 import chaiHttp from 'chai-http';
 
-({ SetTestMode }.SetTestMode());
-const CompileHandler = { Handler: compile }.Handler;
+handler.SetTestMode();
+const CompileHandler = { Handler: handler.default }.Handler;
 chai.use(chaiHttp);
 chai.should();
 

@@ -30,5 +30,5 @@ export const lang = {
 };
 
 export default {
-    lang
+    lang,
 };
