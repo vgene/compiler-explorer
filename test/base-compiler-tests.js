@@ -25,7 +25,7 @@
 import { fs, path, should, makeCompilationEnvironment } from './utils';
 import sinon from 'sinon';
 import { BaseCompiler } from '../lib/base-compiler';
-import { DemanglerCPP } from '../lib/demangler-cpp';
+import { CppDemangler } from '../lib/demangler';
 import * as exec from '../lib/exec';
 
 const languages = {
@@ -297,7 +297,7 @@ describe('Compiler execution', function () {
     });
 
     it('should demangle', async () => {
-        const withDemangler = {...info, demangler: 'demangler-exe'};
+        const withDemangler = {...info, demangler: 'demangler-exe', demanglerType: 'cpp'};
         const compiler = new BaseCompiler(withDemangler, ce);
         const execStub = sinon.stub(compiler, 'exec');
         stubOutCallToExec(execStub, compiler, 'someMangledSymbol:\n', {
@@ -317,7 +317,6 @@ describe('Compiler execution', function () {
             });
         });
 
-        compiler.demanglerClass = DemanglerCPP;
         const result = await compiler.compile(
             'source',
             'options',

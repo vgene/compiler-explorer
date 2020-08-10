@@ -51,7 +51,7 @@ import { ClientOptionsHandler } from './lib/options-handler';
 import { CompilationQueue } from './lib/compilation-queue';
 import { CompilationEnvironment } from './lib/compilation-env';
 import { CompileHandler } from './lib/handlers/compile';
-import * as StorageHandler from './lib/storage/storage';
+import { getStorageTypeFromName } from './lib/storage';
 import { SourceHandler } from './lib/handlers/source';
 import { CompilerFinder } from './lib/compiler-finder';
 import { loadSponsorsFromString } from './lib/sponsors';
@@ -63,7 +63,6 @@ import * as healthCheck from './lib/handlers/health-check';
 import * as normalizer from './lib/clientstate-normalizer';
 import { createRequire } from 'module';
 
-const startTime = new Date();
 // Initialise options and properties. Don't load any handlers here; they
 // may need an initialised properties library.
 
@@ -379,8 +378,10 @@ function startListening(server) {
     } else {
         _port = defArgs.port;
     }
+
+    var startupDurationMs = Math.floor(process.uptime() * 1000);
     logger.info(`  Listening on http://${defArgs.hostname || 'localhost'}:${_port}/`);
-    logger.info(`  Startup duration: ${new Date() - startTime}ms`);
+    logger.info(`  Startup duration: ${startupDurationMs}ms`);
     logger.info('=======================================');
     server.listen(_port, defArgs.hostname);
 }
@@ -419,7 +420,8 @@ async function main() {
     const compilationQueue = CompilationQueue.fromProps(compilerProps.ceProps);
     const compilationEnvironment = new CompilationEnvironment(compilerProps, compilationQueue, defArgs.doCache);
     const compileHandler = new CompileHandler(compilationEnvironment, awsProps);
-    const storageHandler = await StorageHandler.storageFactory(storageSolution, compilerProps, awsProps, httpRoot);
+    const storageType = getStorageTypeFromName(storageSolution);
+    const storageHandler = new storageType(httpRoot, compilerProps, awsProps);
     const sourceHandler = new SourceHandler(fileSources, staticHeaders);
     const compilerFinder = new CompilerFinder(compileHandler, compilerProps, awsProps, defArgs, clientOptionsHandler);
 

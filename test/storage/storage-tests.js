@@ -24,7 +24,7 @@
 
 import chai from 'chai';
 import sinon from 'sinon';
-import { StorageBase } from '../../lib/storage/storage';
+import { StorageBase } from '../../lib/storage';
 
 const should = chai.should();
 

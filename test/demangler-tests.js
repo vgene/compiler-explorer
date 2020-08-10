@@ -25,8 +25,7 @@
 import { fs, path, resolvePathFromTestRoot } from './utils';
 import * as utils from '../lib/utils';
 import { SymbolStore } from '../lib/symbol-store';
-import { DemanglerCPP } from '../lib/demangler-cpp';
-import { DemanglerWin32 } from '../lib/demangler-win32';
+import { CppDemangler, Win32Demangler } from '../lib/demangler';
 import * as exec from '../lib/exec';
 
 const cppfiltpath = 'c++filt';
@@ -49,7 +48,7 @@ describe('Basic demangling', function () {
             asm: [{text: 'Hello, World!'}],
         };
 
-        const demangler = new DemanglerCPP(cppfiltpath, new DummyCompiler());
+        const demangler = new CppDemangler(cppfiltpath, new DummyCompiler());
         demangler.demanglerArguments = ['-n'];
 
         return Promise.all([
@@ -66,7 +65,7 @@ describe('Basic demangling', function () {
             {text: '  ret'},
         ];
 
-        const demangler = new DemanglerCPP(cppfiltpath, new DummyCompiler());
+        const demangler = new CppDemangler(cppfiltpath, new DummyCompiler());
         demangler.demanglerArguments = ['-n'];
 
         return Promise.all([
@@ -86,7 +85,7 @@ describe('Basic demangling', function () {
             {text: '  mov eax, $_Z6squarei'},
         ];
 
-        const demangler = new DemanglerCPP(cppfiltpath, new DummyCompiler());
+        const demangler = new CppDemangler(cppfiltpath, new DummyCompiler());
         demangler.demanglerArguments = ['-n'];
 
         return Promise.all([
@@ -112,7 +111,7 @@ describe('Basic demangling', function () {
             {text: '  rep ret'},
         ];
 
-        const demangler = new DemanglerCPP(cppfiltpath, new DummyCompiler());
+        const demangler = new CppDemangler(cppfiltpath, new DummyCompiler());
         demangler.demanglerArguments = ['-n'];
 
         return demangler.process(result)
@@ -130,7 +129,7 @@ describe('Basic demangling', function () {
             {text: '        call     ??3@YAXPEAX_K@Z                ; operator delete'},
         ];
 
-        const demangler = new DemanglerWin32(cppfiltpath, new DummyCompiler());
+        const demangler = new Win32Demangler(cppfiltpath, new DummyCompiler());
         demangler.result = result;
         demangler.symbolstore = new SymbolStore();
         demangler.collectLabels();
@@ -149,7 +148,7 @@ describe('Basic demangling', function () {
             {text: '        call     hello                ; operator delete'},
         ];
 
-        const demangler = new DemanglerCPP(cppfiltpath, new DummyCompiler());
+        const demangler = new CppDemangler(cppfiltpath, new DummyCompiler());
         demangler.demanglerArguments = ['-n'];
         demangler.result = result;
         demangler.symbolstore = new SymbolStore();
@@ -169,7 +168,7 @@ describe('Basic demangling', function () {
             {text: '   bl _ZN3FooC1Ev'},
         ];
 
-        const demangler = new DemanglerCPP(cppfiltpath, new DummyCompiler());
+        const demangler = new CppDemangler(cppfiltpath, new DummyCompiler());
         demangler.demanglerArguments = ['-n'];
         demangler.result = result;
         demangler.symbolstore = new SymbolStore();
@@ -189,7 +188,7 @@ describe('Basic demangling', function () {
             {text: '$LN3@caller2:'},
         ];
 
-        const demangler = new DemanglerWin32(cppfiltpath, new DummyCompiler());
+        const demangler = new Win32Demangler(cppfiltpath, new DummyCompiler());
         demangler.result = result;
         demangler.symbolstore = new SymbolStore();
         demangler.collectLabels();
@@ -207,7 +206,7 @@ describe('Basic demangling', function () {
             {text: '  jmp _Z1fP6mytype # TAILCALL'},
         ];
 
-        const demangler = new DemanglerCPP(cppfiltpath, new DummyCompiler());
+        const demangler = new CppDemangler(cppfiltpath, new DummyCompiler());
         demangler.demanglerArguments = ['-n'];
         demangler.result = result;
         demangler.symbolstore = new SymbolStore();
@@ -227,7 +226,7 @@ describe('Basic demangling', function () {
             {text: '  jmp _Z1fP6mytype'},
         ];
 
-        const demangler = new DemanglerCPP(cppfiltpath, new DummyCompiler());
+        const demangler = new CppDemangler(cppfiltpath, new DummyCompiler());
         demangler.demanglerArguments = ['-n'];
         demangler.result = result;
         demangler.symbolstore = new SymbolStore();
@@ -260,7 +259,7 @@ function DoDemangleTest(root, filename, resolve, reject) {
                 return {text: line};
             });
 
-            const demangler = new DemanglerCPP(cppfiltpath, new DummyCompiler());
+            const demangler = new CppDemangler(cppfiltpath, new DummyCompiler());
             demangler.demanglerArguments = ['-n'];
             demangler.process(resultIn)
                 .then((output) => {

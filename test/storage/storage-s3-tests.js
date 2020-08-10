@@ -24,7 +24,7 @@
 
 import { should } from '../utils';
 import * as properties from '../../lib/properties';
-import { StorageS3 } from '../../lib/storage/storage-s3';
+import { StorageS3 } from '../../lib/storage';
 import AWS from 'aws-sdk-mock';
 
 // NB!!! Anything using mocked AWS calls needs to be initialised in the `it(...)` block! If you initialise it in the
