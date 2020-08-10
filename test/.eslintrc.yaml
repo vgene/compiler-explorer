@@ -1,0 +1,8 @@
+---
+root: false
+rules:
+  max-len: off
+  max-statements: off
+  node/no-unsupported-features/es-syntax: off
+  no-unused-vars: off
+  promise/catch-or-return: off
