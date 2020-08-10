@@ -24,8 +24,9 @@
 
 import { fs, path, should, makeCompilationEnvironment } from './utils';
 import sinon from 'sinon';
-import BaseCompiler from '../lib/base-compiler';
-import exec from '../lib/exec';
+import { BaseCompiler } from '../lib/base-compiler';
+import { DemanglerCPP } from '../lib/demangler-cpp';
+import * as exec from '../lib/exec';
 
 const languages = {
     'c++': {id: 'c++'},
@@ -316,7 +317,7 @@ describe('Compiler execution', function () {
             });
         });
 
-        compiler.demanglerClass = (await import('../lib/demangler-cpp')).default;
+        compiler.demanglerClass = DemanglerCPP;
         const result = await compiler.compile(
             'source',
             'options',

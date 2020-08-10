@@ -338,7 +338,7 @@ def docenizer():
     print "Writing {} instructions".format(len(instructions))
     with open(args.outputpath, 'w') as f:
         f.write("""
-function getAsmOpcode(opcode) {
+export function getAsmOpcode(opcode) {
     if (!opcode) return;
     switch (opcode.toUpperCase()) {
 """)
@@ -353,11 +353,6 @@ function getAsmOpcode(opcode) {
         f.write("""
     }
 }
-
-export { getAsmOpcode };
-export default {
-    getAsmOpcode: getAsmOpcode
-};
 """)
 
 

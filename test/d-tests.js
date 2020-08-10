@@ -22,14 +22,9 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
-import chai from 'chai';
-import chaiAsPromised from 'chai-as-promised';
-import LDCCompiler from '../lib/compilers/ldc';
-import DMDCompiler from '../lib/compilers/dmd';
-import { makeCompilationEnvironment } from './utils';
-
-chai.use(chaiAsPromised);
-chai.should();
+import { LDCCompiler } from '../lib/compilers/ldc';
+import { DMDCompiler } from '../lib/compilers/dmd';
+import { chai, makeCompilationEnvironment } from './utils';
 
 const languages = {
     d: {id: 'd'},

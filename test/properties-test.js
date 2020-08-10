@@ -22,10 +22,8 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
-import chai from 'chai';
-import properties from '../lib/properties';
-
-const should = chai.should();
+import { should } from './utils';
+import * as properties from '../lib/properties';
 
 const languages = {
     a: {id: 'a'},

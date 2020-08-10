@@ -22,25 +22,18 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
-import * as handler from '../../lib/handlers/compile';
-import chai from 'chai';
-
+import { chai, makeCompilationEnvironment } from '../utils';
+import { CompileHandler, SetTestMode } from '../../lib/handlers/compile';
 import express from 'express';
 import bodyParser from 'body-parser';
-import { makeCompilationEnvironment } from '../utils';
-import chaiHttp from 'chai-http';
 
-handler.SetTestMode();
-const CompileHandler = { Handler: handler.default }.Handler;
-chai.use(chaiHttp);
-chai.should();
+SetTestMode();
 
 const languages = {
     a: {id: 'a'},
     b: {id: 'b'},
     d: {id: 'd'},
 };
-
 
 describe('Compiler tests', () => {
     let app, compileHandler;

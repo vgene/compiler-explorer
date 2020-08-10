@@ -23,7 +23,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 import { chai } from '../utils';
-import SourceHandler from '../../lib/handlers/source';
+import { SourceHandler } from '../../lib/handlers/source';
 import express from 'express';
 
 describe('Sources', () => {

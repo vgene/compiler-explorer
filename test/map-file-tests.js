@@ -23,8 +23,8 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 import { assert } from './utils';
-import MapFileReaderVS from '../lib/map-file-vs';
-import MapFileReaderDelphi from '../lib/map-file-delphi';
+import { MapFileReaderVS } from '../lib/map-file-vs';
+import { MapFileReaderDelphi } from '../lib/map-file-delphi';
 
 describe('Map setup', function () {
     it('VS-map preferred load address', function () {

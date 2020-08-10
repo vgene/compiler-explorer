@@ -22,13 +22,9 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
-import chai from 'chai';
-import chaiAsPromised from 'chai-as-promised';
-import CompilerFinder from '../lib/compiler-finder';
-import properties from '../lib/properties';
-
-chai.use(chaiAsPromised);
-chai.should();
+import './utils';
+import { CompilerFinder } from '../lib/compiler-finder';
+import * as properties from '../lib/properties';
 
 const languages = {
     'a-lang': {

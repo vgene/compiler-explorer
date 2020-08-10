@@ -22,12 +22,12 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
-import AsmParser from '../lib/asm-parser-vc';
+import { VcAsmParser } from '../lib/asm-parser-vc';
 import { AsmRegex } from '../lib/asmregex';
 
 describe('ASM CL parser', () => {
     it('should work for error documents', () => {
-        const parser = new AsmParser();
+        const parser = new VcAsmParser();
         const result = parser.process('<Compilation failed>', {
             directives: true,
         });

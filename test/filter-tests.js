@@ -23,9 +23,9 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 import { chai, fs, resolvePathFromTestRoot } from './utils';
-import AsmParser from '../lib/asm-parser';
-import AsmParserSass from '../lib/asm-parser-sass';
-import AsmParserVC from '../lib/asm-parser-vc';
+import { AsmParser } from '../lib/asm-parser';
+import { SassAsmParser } from '../lib/asm-parser-sass';
+import { VcAsmParser } from '../lib/asm-parser-vc';
 import * as utils from '../lib/utils';
 
 // eslint-disable-next-line no-unused-vars
@@ -74,9 +74,9 @@ function processAsm(filename, filters) {
     const file = fs.readFileSync(filename, 'utf-8');
     let parser;
     if (file.includes('Microsoft'))
-        parser = new AsmParserVC();
+        parser = new VcAsmParser();
     else if (filename.includes('sass-'))
-        parser = new AsmParserSass();
+        parser = new SassAsmParser();
     else
         parser = new AsmParser();
     return parser.process(file, filters);

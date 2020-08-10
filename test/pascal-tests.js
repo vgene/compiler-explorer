@@ -22,16 +22,11 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
-import chai from 'chai';
-import chaiAsPromised from 'chai-as-promised';
-import DemanglerPascal from '../lib/demangler-pascal';
-import FPCCompiler from '../lib/compilers/pascal';
+import { DemanglerPascal } from '../lib/demangler-pascal';
+import { FPCCompiler } from '../lib/compilers/pascal';
 import fs from 'fs-extra';
 import * as utils from '../lib/utils';
 import { makeCompilationEnvironment } from './utils';
-
-chai.use(chaiAsPromised);
-chai.should();
 
 const languages = {
     pascal: {id: 'pascal'},

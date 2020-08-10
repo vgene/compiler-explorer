@@ -25,9 +25,9 @@
 import { fs, path, resolvePathFromTestRoot } from './utils';
 import * as utils from '../lib/utils';
 import { SymbolStore } from '../lib/symbol-store';
-import DemanglerCPP from '../lib/demangler-cpp';
-import DemanglerWin32 from '../lib/demangler-win32';
-import exec from '../lib/exec';
+import { DemanglerCPP } from '../lib/demangler-cpp';
+import { DemanglerWin32 } from '../lib/demangler-win32';
+import * as exec from '../lib/exec';
 
 const cppfiltpath = 'c++filt';
 

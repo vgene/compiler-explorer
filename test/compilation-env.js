@@ -23,8 +23,8 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 import { chai } from './utils';
-import CompilationEnvironment from '../lib/compilation-env';
-import properties from '../lib/properties';
+import { CompilationEnvironment } from '../lib/compilation-env';
+import { CompilerProps, fakeProps } from '../lib/properties';
 
 const props = {
     optionsAllowedRe: '.*',
@@ -36,7 +36,7 @@ describe('Compilation environment', () => {
     let compilerProps;
 
     before(() => {
-        compilerProps = new properties.CompilerProps({}, properties.fakeProps(props));
+        compilerProps = new CompilerProps({}, fakeProps(props));
     });
 
     it('Should cache by default', () => {

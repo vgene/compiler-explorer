@@ -22,13 +22,8 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
-import chai from 'chai';
-import chaiAsPromised from 'chai-as-promised';
-import PPCICompiler from '../lib/compilers/ppci';
+import { PPCICompiler } from '../lib/compilers/ppci';
 import { makeCompilationEnvironment } from './utils';
-
-chai.use(chaiAsPromised);
-chai.should();
 
 const languages = {
     c: {id: 'c'},

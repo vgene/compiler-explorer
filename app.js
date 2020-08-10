@@ -26,7 +26,7 @@
 
 import nopt from 'nopt';
 import os from 'os';
-import props from './lib/properties';
+import * as props from './lib/properties';
 import child_process from 'child_process';
 import path from 'path';
 import process from 'process';
@@ -41,26 +41,26 @@ import Sentry from '@sentry/node';
 import { logger, logToPapertrail, suppressConsoleLog } from './lib/logger';
 import * as utils from './lib/utils';
 import { initialiseWine } from './lib/exec';
-import RouteAPI from './lib/handlers/route-api';
-import NoScriptHandler from './lib/handlers/noscript';
-import aws from './lib/aws';
+import { RouteAPI } from './lib/handlers/route-api';
+import { NoScriptHandler } from './lib/handlers/noscript';
+import * as aws from './lib/aws';
 import { ShortLinkResolver } from './lib/google';
-import { list } from './lib/languages';
+import { languages as allLanguages } from './lib/languages';
 import { policy } from './lib/csp';
-import ClientOptionsHandler from './lib/options-handler';
-import CompilationQueue from './lib/compilation-queue';
-import CompilationEnvironment from './lib/compilation-env';
-import CompileHandler from './lib/handlers/compile';
-import StorageHandler from './lib/storage/storage';
-import SourceHandler from './lib/handlers/source';
-import CompilerFinder from './lib/compiler-finder';
-import * as sponsors from './lib/sponsors';
+import { ClientOptionsHandler } from './lib/options-handler';
+import { CompilationQueue } from './lib/compilation-queue';
+import { CompilationEnvironment } from './lib/compilation-env';
+import { CompileHandler } from './lib/handlers/compile';
+import * as StorageHandler from './lib/storage/storage';
+import { SourceHandler } from './lib/handlers/source';
+import { CompilerFinder } from './lib/compiler-finder';
+import { loadSponsorsFromString } from './lib/sponsors';
 import sFavicon from 'serve-favicon';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import compression from 'compression';
 import * as healthCheck from './lib/handlers/health-check';
-import normalizer from './lib/clientstate-normalizer';
+import * as normalizer from './lib/clientstate-normalizer';
 import { createRequire } from 'module';
 
 const startTime = new Date();
@@ -188,7 +188,8 @@ props.initialize(configDir, propHierarchy);
 // Instantiate a function to access records concerning "compiler-explorer"
 // in hidden object props.properties
 const ceProps = props.propsFor('compiler-explorer');
-let languages = { list }.list;
+
+let languages = allLanguages;
 if (defArgs.wantedLanguage) {
     const filteredLangs = {};
     _.each(languages, lang => {
@@ -520,7 +521,7 @@ async function main() {
             res.render('error', renderConfig({error: {code: status, message: message}}));
         });
 
-    const sponsorConfig = sponsors.loadFromString(fs.readFileSync(configDir + '/sponsors.yaml', 'utf-8'));
+    const sponsorConfig = loadSponsorsFromString(fs.readFileSync(configDir + '/sponsors.yaml', 'utf-8'));
     function renderConfig(extra, urlOptions) {
         const urlOptionsAllowed = [
             'readOnly', 'hideEditorToolbars', 'language',

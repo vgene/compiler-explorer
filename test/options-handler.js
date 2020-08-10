@@ -22,15 +22,11 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
-import chai from 'chai';
-import chaiAsPromised from 'chai-as-promised';
-import OptionsHandler from '../lib/options-handler';
+import { ClientOptionsHandler } from '../lib/options-handler';
 import _ from 'underscore';
-import properties from '../lib/properties';
-import BaseCompiler from '../lib/base-compiler';
-
-chai.use(chaiAsPromised);
-const should = chai.should();
+import * as properties from '../lib/properties';
+import { BaseCompiler } from '../lib/base-compiler';
+import { should } from './utils';
 
 const languages = {
     fake: {
@@ -121,10 +117,10 @@ describe('Options handler', () => {
 
     before(() => {
         compilerProps = new properties.CompilerProps(languages, properties.fakeProps(libProps));
-        optionsHandler = new OptionsHandler([], compilerProps, {env: ['dev']});
+        optionsHandler = new ClientOptionsHandler([], compilerProps, {env: ['dev']});
 
         moreCompilerProps = new properties.CompilerProps(languages, properties.fakeProps(moreLibProps));
-        moreOptionsHandler = new OptionsHandler([], moreCompilerProps, {env: ['dev']});
+        moreOptionsHandler = new ClientOptionsHandler([], moreCompilerProps, {env: ['dev']});
     });
 
     it('should always return an array of paths', () => {

@@ -22,13 +22,8 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
-import chai from 'chai';
-import chaiAsPromised from 'chai-as-promised';
-import NimCompiler from '../lib/compilers/nim';
-import { makeCompilationEnvironment } from './utils';
-
-chai.use(chaiAsPromised);
-chai.should();
+import { NimCompiler } from '../lib/compilers/nim';
+import { chai, makeCompilationEnvironment } from './utils';
 
 const languages = {
     nim: {id: 'nim'},

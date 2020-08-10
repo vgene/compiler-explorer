@@ -22,7 +22,7 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
-import LLVMmcaTool from '../lib/compilers/llvm-mca';
+import { LLVMmcaTool } from '../lib/compilers/llvm-mca';
 import { chai, makeCompilationEnvironment } from './utils';
 
 const languages = {

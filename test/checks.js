@@ -22,10 +22,10 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
-import { chai, fs } from './utils';
+import { fs } from './utils';
 import _ from 'underscore';
-import properties from '../lib/properties';
-import { list as languages } from '../lib/languages';
+import * as properties from '../lib/properties';
+import { languages } from '../lib/languages';
 
 describe('Live site checks', () => {
     let ceProps;

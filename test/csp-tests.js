@@ -23,7 +23,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 import chai from 'chai';
-import csp from '../lib/csp';
+import * as csp from '../lib/csp';
 
 chai.should();
 

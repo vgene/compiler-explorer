@@ -23,14 +23,10 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 import mockfs from 'mock-fs';
-import chai from 'chai';
-import CompilationQueue from '../../lib/compilation-queue';
+import { chai } from '../utils';
+import { CompilationQueue } from '../../lib/compilation-queue';
 import { HealthCheckHandler } from '../../lib/handlers/health-check';
 import express from 'express';
-import chaiHttp from 'chai-http';
-
-chai.use(chaiHttp);
-chai.should();
 
 describe('Health checks', () => {
     let app;

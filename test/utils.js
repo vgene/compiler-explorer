@@ -29,8 +29,8 @@ import chaiHttp from 'chai-http';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { CompilerProps, fakeProps } from '../lib/properties';
-import CompilationQueue from '../lib/compilation-queue';
-import CompilationEnvironment from '../lib/compilation-env';
+import { CompilationQueue } from '../lib/compilation-queue';
+import { CompilationEnvironment } from '../lib/compilation-env';
 
 const makeCompilationEnvironment = (options) => {
     const compilerProps = new CompilerProps(options.languages, fakeProps(options.props || {}));

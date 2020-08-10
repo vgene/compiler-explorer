@@ -22,15 +22,10 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
-import chai from 'chai';
-import chaiAsPromised from 'chai-as-promised';
-import JavaCompiler from '../lib/compilers/java';
+import { JavaCompiler } from '../lib/compilers/java';
 import fs from 'fs-extra';
 import * as utils from '../lib/utils';
-import { makeCompilationEnvironment } from './utils';
-
-chai.use(chaiAsPromised);
-chai.should();
+import { chai, makeCompilationEnvironment } from './utils';
 
 const languages = {
     java: {id: 'java'},
@@ -41,9 +36,6 @@ const info = {
     remote: true,
     lang: languages.java.id,
 };
-
-
-
 
 // Temporarily disabled: see #1438
 describe.skip('Basic compiler setup', function () {

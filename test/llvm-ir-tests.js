@@ -22,15 +22,9 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
-import chai from 'chai';
-import chaiAsPromised from 'chai-as-promised';
-import LLCCompiler from '../lib/compilers/llc';
-import OPTCompiler from '../lib/compilers/opt';
+import { LLCCompiler } from '../lib/compilers/llc';
+import { OptCompiler } from '../lib/compilers/opt';
 import { makeCompilationEnvironment } from './utils';
-
-chai.use(chaiAsPromised);
-chai.should();
-
 
 const languages = {
     llvm: {id: 'llvm'},
@@ -89,7 +83,7 @@ describe('LLVM IR Compiler', () => {
     });
 
     it('opt options', function () {
-        const compiler = createCompiler(OPTCompiler);
+        const compiler = createCompiler(OptCompiler);
 
         compiler.optionsForFilter({
             intel: false,

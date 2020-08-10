@@ -23,12 +23,12 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 import { chai } from '../utils';
-import * as asmDocsApi from '../../lib/handlers/asm-docs-api';
+import { AsmDocsHandler } from '../../lib/handlers/asm-docs-api';
 import express from 'express';
 
 describe('Assembly documents', () => {
     const app = express();
-    const handler = new asmDocsApi.Handler();
+    const handler = new AsmDocsHandler();
     app.use('/asm/:opcode', handler.handle.bind(handler));
 
     // We don't serve a 404 for unknown opcodes as it allows the not-an-opcode to be cached.

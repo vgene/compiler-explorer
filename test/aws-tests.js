@@ -23,7 +23,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 import { chai } from './utils';
-import aws from '../lib/aws';
+import * as aws from '../lib/aws';
 import AWS from 'aws-sdk-mock';
 
 const instanceA = {

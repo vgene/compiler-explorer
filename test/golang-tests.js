@@ -26,7 +26,7 @@ import chai from 'chai';
 import chaiAsPromised from 'chai-as-promised';
 import fs from 'fs-extra';
 import * as utils from '../lib/utils';
-import GoCompiler from '../lib/compilers/golang';
+import { GolangCompiler } from '../lib/compilers/golang';
 import { makeCompilationEnvironment } from './utils';
 
 chai.use(chaiAsPromised);
@@ -44,7 +44,7 @@ const info = {
 };
 
 function testGoAsm(basefilename) {
-    const compiler = new GoCompiler(info, ce);
+    const compiler = new GolangCompiler(info, ce);
 
     const asmLines = utils.splitLines(fs.readFileSync(basefilename + '.asm').toString());
 

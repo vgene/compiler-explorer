@@ -24,7 +24,7 @@
 
 import path from 'path';
 import chai from 'chai';
-import CompilerDropinTool from '../lib/tooling/compiler-dropin-tool';
+import { CompilerDropinTool } from '../lib/tooling/compiler-dropin-tool';
 
 chai.should();
 
