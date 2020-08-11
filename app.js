@@ -61,6 +61,7 @@ import morgan from 'morgan';
 import compression from 'compression';
 import * as healthCheck from './lib/handlers/health-check';
 import * as normalizer from './lib/clientstate-normalizer';
+import { sources } from './lib/sources';
 import { createRequire } from 'module';
 
 // Initialise options and properties. Don't load any handlers here; they
@@ -311,14 +312,6 @@ async function setupStaticMiddleware(router) {
     };
 }
 
-async function loadSources() {
-    const sourcesDir = 'lib/sources';
-    return (await fs.readdir(sourcesDir))
-        .filter(file => file.match(/.*\.js$/))
-        // eslint-disable-next-line node/no-unsupported-features/es-syntax
-        .map(async file => await import('./' + path.join(sourcesDir, file)));
-}
-
 function shouldRedactRequestData(data) {
     try {
         const parsed = JSON.parse(data);
@@ -414,15 +407,14 @@ const awsProps = props.propsFor('aws');
 async function main() {
     await aws.initConfig(awsProps);
     await initialiseWine();
-    const fileSources = await loadSources();
 
-    const clientOptionsHandler = new ClientOptionsHandler(fileSources, compilerProps, defArgs);
+    const clientOptionsHandler = new ClientOptionsHandler(sources, compilerProps, defArgs);
     const compilationQueue = CompilationQueue.fromProps(compilerProps.ceProps);
     const compilationEnvironment = new CompilationEnvironment(compilerProps, compilationQueue, defArgs.doCache);
     const compileHandler = new CompileHandler(compilationEnvironment, awsProps);
     const storageType = getStorageTypeFromName(storageSolution);
     const storageHandler = new storageType(httpRoot, compilerProps, awsProps);
-    const sourceHandler = new SourceHandler(fileSources, staticHeaders);
+    const sourceHandler = new SourceHandler(sources, staticHeaders);
     const compilerFinder = new CompilerFinder(compileHandler, compilerProps, awsProps, defArgs, clientOptionsHandler);
 
     logger.info('=======================================');
