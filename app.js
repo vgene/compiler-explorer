@@ -277,7 +277,7 @@ async function setupWebPackDevMiddleware(router) {
     // eslint-disable-next-line requirejs/no-js-extension
     const webpackConfig = (await import('./webpack.config.esm.js')).default;
     const webpack = (await import('webpack')).default;
-    /* eslint-enable node/no-unsupported-features/es-syntax, node/no-unpublished-import */
+    /* eslint-enable */
 
     const webpackCompiler = webpack(webpackConfig);
     router.use(webpackDevMiddleware(webpackCompiler, {

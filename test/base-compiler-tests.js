@@ -25,7 +25,6 @@
 import { fs, path, should, makeCompilationEnvironment } from './utils';
 import sinon from 'sinon';
 import { BaseCompiler } from '../lib/base-compiler';
-import { CppDemangler } from '../lib/demangler';
 import * as exec from '../lib/exec';
 
 const languages = {

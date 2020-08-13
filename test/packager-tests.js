@@ -22,16 +22,9 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 
-import chai from 'chai';
-import chaiAsPromised from 'chai-as-promised';
-import { Packager as Packager$0 } from '../lib/packager';
-import path from 'path';
-import fs from 'fs-extra';
+import { fs, path } from './utils';
+import { Packager } from '../lib/packager';
 import temp from 'temp';
-
-const Packager = { Packager: Packager$0 }.Packager;
-chai.use(chaiAsPromised);
-chai.should();
 
 function newTempDir() {
     return new Promise((resolve, reject) => {
