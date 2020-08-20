@@ -52,6 +52,7 @@ import { CompilationQueue } from './lib/compilation-queue';
 import { CompilationEnvironment } from './lib/compilation-env';
 import { CompileHandler } from './lib/handlers/compile';
 import { getStorageTypeFromName } from './lib/storage';
+import { getShortenerTypeFromName } from './lib/shortener';
 import { SourceHandler } from './lib/handlers/source';
 import { CompilerFinder } from './lib/compiler-finder';
 import { loadSponsorsFromString } from './lib/sponsors';
@@ -582,9 +583,8 @@ async function main() {
     // Based on combined format, but: GDPR compliant IP, no timestamp & no unused fields for our usecase
     const morganFormat = isDevMode() ? 'dev' : ':gdpr_ip ":method :url" :status';
 
-    // eslint-disable-next-line node/no-unsupported-features/es-syntax
-    const shortenerLib = (await import(`./lib/shortener-${clientOptionsHandler.options.urlShortenService}`)).default;
-    const shortener = shortenerLib({storageHandler});
+    const shortenerType = getShortenerTypeFromName(clientOptionsHandler.options.urlShortenService);
+    const shortener = new shortenerType(storageHandler);
 
     /*
      * This is a workaround to make cross origin monaco web workers function
@@ -691,7 +691,7 @@ async function main() {
         .use(bodyParser.text({limit: ceProps('bodyParserLimit', maxUploadSize), type: () => true}))
         .use('/source', sourceHandler.handle.bind(sourceHandler))
         .use('/g', oldGoogleUrlHandler)
-        .post('/shortener', shortener);
+        .post('/shortener', shortener.handle.bind(shortener));
 
     routeApi.InitializeRoutes();
     noscriptHandler.InitializeRoutes();
