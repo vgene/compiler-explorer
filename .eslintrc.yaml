@@ -99,6 +99,7 @@ rules:
   no-process-exit: off
   node/no-unpublished-require: off
   node/no-unpublished-import: off
+  node/no-unsupported-features/es-syntax: off
   node/shebang: off
   promise/catch-or-return: error
   promise/no-new-statics: error
