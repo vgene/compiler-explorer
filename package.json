@@ -118,14 +118,14 @@
   },
   "scripts": {
     "ci-lint": "eslint --format github .",
-    "ci-test": "nyc --reporter=lcov mocha --recursive",
+    "ci-test": "nyc mocha --recursive",
     "lint": "eslint .",
     "lint-fix": "eslint --fix .",
-    "test": "npx -n --experimental-modules -n --es-module-specifier-resolution=node mocha -r mock-fs --recursive",
+    "test": "npx mocha -r esm -r mock-fs --recursive",
     "check": "npm run lint && npm run test",
-    "dev": "cross-env NODE_ENV=DEV node app.js",
-    "debug": "cross-env NODE_ENV=DEV node app.js --debug",
-    "start": "npx webpack && cross-env NODE_ENV=LOCAL node app.js",
+    "dev": "cross-env NODE_ENV=DEV node -r esm app.js",
+    "debug": "cross-env NODE_ENV=DEV node -r esm app.js --debug",
+    "start": "npx webpack && cross-env NODE_ENV=LOCAL node -r esm app.js",
     "codecov": "codecov --disable=gcov"
   },
   "license": "BSD-2-Clause"

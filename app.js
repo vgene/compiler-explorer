@@ -37,7 +37,7 @@ import urljoin from 'url-join';
 import _ from 'underscore';
 import express from 'express';
 import responseTime from 'response-time';
-import Sentry from '@sentry/node';
+import * as Sentry from '@sentry/node';
 import { logger, logToPapertrail, suppressConsoleLog } from './lib/logger';
 import * as utils from './lib/utils';
 import { initialiseWine } from './lib/exec';
