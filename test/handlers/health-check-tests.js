@@ -64,14 +64,11 @@ describe('Health checks on disk', () => {
         app.use('/hc', new HealthCheckHandler(compilationQueue, '/fake/.nonexist').handle);
         app.use('/hc2', new HealthCheckHandler(compilationQueue, '/fake/.health').handle);
 
-        /*
-         * TODO: for some reason this is broken
         mockfs({
             '/fake': {
                 '.health': 'Everything is fine',
             },
         });
-        */
     });
 
     after(() => {

@@ -121,7 +121,7 @@
     "ci-test": "nyc --reporter=lcov mocha --recursive",
     "lint": "eslint .",
     "lint-fix": "eslint --fix .",
-    "test": "npx -n --experimental-modules -n --es-module-specifier-resolution=node mocha --recursive",
+    "test": "npx -n --experimental-modules -n --es-module-specifier-resolution=node mocha -r mock-fs --recursive",
     "check": "npm run lint && npm run test",
     "dev": "cross-env NODE_ENV=DEV node app.js",
     "debug": "cross-env NODE_ENV=DEV node app.js --debug",
